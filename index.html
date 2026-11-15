@@ -1,178 +1,236 @@
 <!DOCTYPE html>
-<html lang="ha">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RABSON G DATA</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <style>
-:root{--navy:#0a1f44;--royal:#1747c9;--gold:#d4a526;--gold2:#f0c850;--bg:#f3f6fc;--card:#fff;--ink:#0a1f44;--mut:#5b6b8c;--line:#dde4f2;--ok:#157f4b;--warn:#b26a00;--bad:#b3261e}
-@media(prefers-color-scheme:dark){:root{--bg:#070f22;--card:#101c3a;--ink:#eef2fb;--mut:#9fb0d3;--line:#22345f}}
+:root{--navy:#0a1f44;--royal:#1747c9;--gold:#d4a526;--gold2:#f0c850;--bg:#f3f6fc;--card:#fff;--ink:#0a1f44;--mut:#5b6b8c;--line:#dde4f2;--ok:#157f4b;--warn:#b26a00;--bad:#b3261e;--chip:#e8eefc}
+:root[data-theme=dark]{--bg:#070f22;--card:#101c3a;--ink:#eef2fb;--mut:#9fb0d3;--line:#22345f;--chip:#1c2f5e}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
-h1,h2,h3{margin:0}h2{font-size:20px;margin:16px 0 10px}h3{font-size:16px;margin-bottom:8px}
-.wrap{max-width:560px;margin:0 auto;padding:0 16px 90px}
-.top{background:var(--navy);color:#fff;padding:14px 16px}
+h2{font-size:20px;margin:14px 0 10px}h3{font-size:16px;margin:0 0 8px}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 130px}
+.top{background:var(--navy);color:#fff;padding:12px 16px}
 .top .in{max-width:560px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-.brand{font-weight:800;font-size:20px}.brand b{color:var(--gold2)}
-.tag{font-size:11px;color:var(--gold2)}
+.brand{font-weight:800;font-size:19px}.brand b{color:var(--gold2)}.tag{font-size:10px;color:var(--gold2)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
-.hero{background:linear-gradient(135deg,var(--royal),var(--navy));border:1px solid var(--gold);border-radius:20px;padding:18px;color:#fff;margin:14px 0}
-.bal{font-weight:800;font-size:34px}
+.hero{background:linear-gradient(135deg,var(--royal),var(--navy));border:1px solid var(--gold);border-radius:20px;padding:18px;color:#fff;margin:12px 0}
+.two{display:flex;justify-content:space-between;gap:12px;margin-bottom:12px}
+.bal{font-weight:800;font-size:26px}.hero small{opacity:.85}
+.eye{background:none;border:0;font-size:18px;cursor:pointer}
 label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
-input,textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
 .btn{border:0;border-radius:12px;padding:12px 16px;font:600 15px system-ui;cursor:pointer;background:var(--royal);color:#fff;text-decoration:none;display:inline-block;text-align:center}
 .btn.gold{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#2a1d00}
-.btn.full{width:100%;margin-top:10px}.btn[disabled]{opacity:.5}
-.btn:focus-visible,input:focus-visible,textarea:focus-visible,nav button:focus-visible{outline:3px solid var(--gold2);outline-offset:2px}
+.btn.full{width:100%;margin-top:10px;display:block}
+:is(.btn,input,textarea,button):focus-visible{outline:3px solid var(--gold2);outline-offset:2px}
 .note{font-size:13px;color:var(--mut)}
-.row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
-.row:last-child{border:0}
-.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
-.msg{padding:10px 12px;border-radius:10px;margin:10px 0;font-size:14px;background:#fff4d6;color:#4a3500}
-.msg.err{background:#fde7e5;color:#7a1610}
-.chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:#e8eefc;color:var(--royal)}
-nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0)}
-nav .in{max-width:560px;margin:0 auto;display:flex}
-nav button{flex:1;background:none;border:0;padding:12px 0;font:600 12px system-ui;color:var(--mut);cursor:pointer}
-nav button[aria-current=page]{color:var(--royal);border-top:3px solid var(--gold)}
+.row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}.row:last-child{border:0}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.msg{padding:10px 12px;border-radius:10px;margin:10px 0;font-size:14px;background:#fff4d6;color:#4a3500}.msg.err{background:#fde7e5;color:#7a1610}
+.chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--royal);border:0}
+button.chip{cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 2px;text-align:center;font:600 12px system-ui;color:var(--ink);cursor:pointer}
+.tile span{display:block;font-size:24px;margin-bottom:2px}
+.promo{width:100%;border:0;border-radius:16px;padding:16px;text-align:left;font:600 14px system-ui;color:var(--navy);background:linear-gradient(120deg,var(--gold2),#fff3c4);cursor:pointer;margin:6px 0}
+.list{padding:4px 16px}
+.item{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;border-bottom:1px solid var(--line);padding:14px 0;color:var(--ink);font:600 15px system-ui;cursor:pointer;text-align:left}
+.item:last-child{border:0}.item .lbl{flex:1}
+.ic{width:36px;height:36px;border-radius:50%;background:var(--chip);display:grid;place-items:center}
+.avatar{width:72px;height:72px;border-radius:50%;background:var(--navy);color:var(--gold2);border:2px solid var(--gold);display:grid;place-items:center;font:800 28px system-ui;margin:14px auto 0}
+.center{text-align:center}
+.back{background:none;border:0;color:var(--royal);font:600 15px system-ui;padding:12px 0 0;cursor:pointer}
 .tabs{display:flex;gap:8px;margin-bottom:6px}
 .tabs button{flex:1;padding:10px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:600 14px system-ui;cursor:pointer}
 .tabs button[aria-pressed=true]{border-color:var(--gold);background:var(--navy);color:var(--gold2)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--navy);padding-bottom:env(safe-area-inset-bottom,0)}
+nav .in{max-width:560px;margin:0 auto;display:flex}
+nav button{flex:1;background:none;border:0;padding:8px 0;font:600 11px system-ui;color:#9fb0d3;cursor:pointer}
+nav button span{display:block;font-size:20px}
+nav button[aria-current=page]{color:var(--gold2)}
+#wa{position:fixed;right:14px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:52px;height:52px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;font-size:26px;text-decoration:none;box-shadow:0 4px 12px #0004}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
-<div class="top"><div class="in"><div><div class="brand">RABSON <b>G</b> DATA</div><div class="tag">FAST • CHEAP • SECURE • RELIABLE</div></div><div><button class="chip" id="lang" aria-label="Language" style="border:0;cursor:pointer;margin-right:6px">HA</button><span class="chip" id="who"></span></div></div></div>
+<div class="top"><div class="in"><div><div class="brand">RABSON <b>G</b> DATA</div><div class="tag">FAST • CHEAP • SECURE • RELIABLE</div></div><div><button class="chip" id="lang" aria-label="Language">EN | HA</button> <span class="chip" id="who"></span></div></div></div>
 <main class="wrap" id="app"></main>
+<a id="wa" href="https://wa.me/2347019909229" target="_blank" rel="noopener" aria-label="WhatsApp" hidden>💬</a>
 <nav id="nav" hidden><div class="in" id="navin"></div></nav>
 <script>
 // Public values only. NEVER put a secret / service_role key in this file.
 var SUPABASE_URL='https://gyjughbgzazjivsgchoc.supabase.co';
 var SUPABASE_KEY='sb_publishable_VotZvkeFhRDvFalih3dwXg_ccfWi1ZI';
 var sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-var S={user:null,profile:null,tab:'home',mode:'login',msg:'',err:false};
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+var LANG=ls('rgd_lang2')||'en';
+var TH=ls('rgd_th')||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+document.documentElement.setAttribute('data-theme',TH);
+var S={user:null,profile:null,tab:'home',sub:'',name:'',mode:'login',pend:'',msg:'',err:false,hide:ls('rgd_hide')=='1',ref:''};
+try{S.ref=(new URLSearchParams(location.search).get('ref')||'').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,20)}catch(e){}
+if(S.ref)S.mode='signup';
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function naira(n){return '₦'+Number(n||0).toLocaleString('en-NG')}
+function money(n){return S.hide?'₦••••':naira(n)}
 function say(m,e){S.msg=m;S.err=!!e}
-var LANG='ha';try{LANG=localStorage.getItem('rgd_lang')||'ha'}catch(e){}
-var D={'Sign up':'Buɗe asusu','Log in':'Shiga','Create account':'Buɗe asusu','Full name':'Cikakken suna','Phone (080...)':'Lambar waya (080...)','Referral code (optional)':'Lambar referral (idan akwai)','Email':'Imel','Password (min 8)':'Password (akalla haruffa 8)','Your wallet is protected by database security rules.':'Ana kare wallet ɗinka da dokokin tsaro na database.','Home':'Gida','Buy':'Siya','Support':'Tallafi','Account':'Asusu','Wallet balance':'Kuɗin wallet','Fund wallet':'Saka kuɗi a wallet','Transaction history':'Tarihin maʼamala','No transactions yet.':'Babu maʼamala tukuna.','Buy data & airtime':'Siyan data da airtime','Data plans':'Kunshin data','No plans yet. Plans appear only after the admin connects the VTU provider (Phase 3). We never show invented prices.':'Babu kunshin data tukuna. Za su bayyana ne bayan admin ya haɗa VTU provider (Phase 3). Ba ma nuna farashin bogi.','Open a ticket':'Aika korafi','Subject':'Take','Message':'Saƙo','Send':'Aika','My tickets':'Korafe-korafena','No tickets.':'Babu korafi.','Name':'Suna','Phone':'Waya','Referral code':'Lambar referral','Wholesale':'Wholesale','Status:':'Matsayi:','Wholesale prices open only after admin approval.':'Farashin wholesale yana buɗewa ne bayan admin ya amince.','Business name':'Sunan kasuwanci','Apply for wholesale':'Nemi wholesale','Log out':'Fita','Pending wholesale':'Wholesale da ke jira','Open tickets':'Korafe-korafe a buɗe','None.':'Babu.','Approve':'Amince','Resolve':'Rufe','Prices, VTU provider and rates are managed in Phase 3.':'Ana sarrafa farashi, VTU provider da rates a Phase 3.','Verify your email':'Tabbatar da imel ɗinka','Code sent to':'An aika lambar zuwa','6-digit code':'Lambar lambobi 6','Verify':'Tabbatar','Resend code':'Sake aiko lambar','Back to log in':'Koma zuwa shiga','Loading...':'Ana lodawa...',
-'Enter a valid email and a password of at least 8 characters.':'Shigar da imel mai kyau da password na akalla haruffa 8.','Enter your full name and an 11-digit phone number.':'Shigar da cikakken sunanka da lambar waya mai lambobi 11.','We sent a 6-digit code to your email. Enter it below.':'Mun aika lambar lambobi 6 zuwa imel ɗinka. Shigar da ita a ƙasa.','Enter the code from your email.':'Shigar da lambar da ke cikin imel ɗinka.','A new code was sent.':'An aika sabuwar lamba.','Funding opens in Phase 3 after Paystack/Flutterwave is connected and tested.':'Saka kuɗi zai buɗe a Phase 3, bayan an haɗa Paystack/Flutterwave an gwada.','Fill subject and message.':'Cike take da saƙo.','Ticket sent. We will reply soon.':'An aika korafi. Za mu amsa nan ba da jimawa ba.','Enter your business name.':'Shigar da sunan kasuwancinka.','Application sent. Awaiting admin approval.':'An aika buƙata. Ana jiran amincewar admin.','Approved.':'An amince.','Resolved.':'An rufe.'};
+function dt(s){return new Date(s).toLocaleString('en-NG',{dateStyle:'medium',timeStyle:'short'})}
+var D={'Welcome to RABSON G DATA':'Barka da zuwa RABSON G DATA','Log in':'Shiga','Sign up':'Buɗe asusu','Create account':'Buɗe asusu','Full name':'Cikakken suna','Phone (080...)':'Lambar waya (080...)','Referral code (optional)':'Lambar referral (idan akwai)','Email':'Imel','Password (min 8)':'Password (akalla haruffa 8)','Your wallet is protected by database security rules.':'Ana kare wallet ɗinka da dokokin tsaro na database.','Verify your email':'Tabbatar da imel ɗinka','Code sent to':'An aika lambar zuwa','6-digit code':'Lambar lambobi 6','Verify':'Tabbatar','Resend code':'Sake aiko lambar','Back to log in':'Koma zuwa shiga','Loading...':'Ana lodawa...',
+'Welcome!':'Barka!','Package:':'Kunshi:','Account Balance':'Kuɗin Asusu','Referral Bonus':'Ladan Referral','Fund Wallet':'Saka Kuɗi','Dedicated account number':'Lambar asusun banki naka','Available after the payment provider is connected (Phase 3).':'Zai bayyana bayan an haɗa kamfanin biyan kuɗi (Phase 3).','Data':'Data','Airtime':'Airtime','Cable':'Cable TV','Electricity':'Wutar Lantarki','Data Card':'Katin Data','Bonus to Wallet':'Bonus zuwa Wallet','Airtime to Cash':'Canza Airtime zuwa Kuɗi','Recharge Pin':'Recharge Pin','Edu Pin':'Edu Pin','My Referrals':'Referral Dina','Wholesale':'Wholesale','Support':'Tallafi','Refer people and earn. Tap to copy your referral link.':'Gayyaci mutane ka samu riba. Danna don kwafar link ɗin referral ɗinka.','Recent transactions':'Ma’amaloli na kwanan nan','No transactions yet.':'Babu ma’amala tukuna.',
+'Home':'Gida','Transactions':'Ma’amaloli','Wallet':'Wallet','Profile':'Asusu','Purchases':'Siyayya','Wallet history':'Tarihin wallet','No purchases yet.':'Babu siyayya tukuna.','Amount (₦)':'Adadi (₦)','Fund wallet':'Saka kuɗi a wallet','Pay with Paystack':'Biya da Paystack','Pay with Flutterwave':'Biya da Flutterwave',
+'Pricing':'Farashi','Contact Us':'Tuntuɓe Mu','Log Complaint':'Aika Korafi','Upgrade to Wholesale':'Koma Wholesale','Share App':'Raba App','Dark Mode':'Yanayin Duhu','Language':'Harshe','Legal':'Doka da Sirri','Admin Panel':'Allon Admin','Log Out':'Fita','Name':'Suna','Phone':'Waya','Referral code':'Lambar referral','‹ Back':'‹ Koma','Data plans':'Kunshin data','No plans yet. Plans appear only after the admin connects the VTU provider (Phase 3). We never show invented prices.':'Babu kunshin data tukuna. Za su bayyana ne bayan admin ya haɗa VTU provider (Phase 3). Ba ma nuna farashin bogi.','Coming in Phase 3 after the VTU provider is connected and tested.':'Zai zo a Phase 3, bayan an haɗa VTU provider an gwada.','Your referral code':'Lambar referral ɗinka','Copy referral link':'Kwafi link ɗin referral','Referrals:':'Waɗanda ka gayyata:','Bonus earned:':'Ladan da ka samu:','Rewards are set by the admin and are paid once Phase 3 rules are ready.':'Admin ne ke saita lada, kuma za a biya bayan ƙa’idojin Phase 3 sun kammala.',
+'Status:':'Matsayi:','Wholesale prices open only after admin approval.':'Farashin wholesale yana buɗewa ne bayan admin ya amince.','Business name':'Sunan kasuwanci','Apply for wholesale':'Nemi wholesale','Open a ticket':'Aika korafi','Subject':'Take','Message':'Saƙo','Send':'Aika','My tickets':'Korafe-korafena','No tickets.':'Babu korafi.','Privacy, Security & Terms':'Sirri, Tsaro da Sharuɗɗa','This is a pre-launch version. The full Terms of Use and Privacy Policy will be published before public launch.':'Wannan sigar gwaji ce. Cikakkun Sharuɗɗan Amfani da Manufar Sirri za a wallafa su kafin a buɗe wa jama’a.','We store your data securely and never show private keys in the app.':'Muna adana bayananka cikin tsaro, kuma ba ma nuna maɓallan sirri a cikin app.',
+'Admin':'Admin','Pending wholesale':'Wholesale da ke jira','Open tickets':'Korafe-korafe a buɗe','None.':'Babu.','Approve':'Amince','Resolve':'Rufe','Prices, VTU provider and rates are managed in Phase 3.':'Ana sarrafa farashi, VTU provider da rates a Phase 3.',
+'Enter a valid email and a password of at least 8 characters.':'Shigar da imel mai kyau da password na akalla haruffa 8.','Enter your full name and an 11-digit phone number.':'Shigar da cikakken sunanka da lambar waya mai lambobi 11.','We sent a 6-digit code to your email. Enter it below.':'Mun aika lambar lambobi 6 zuwa imel ɗinka. Shigar da ita a ƙasa.','Enter the code from your email.':'Shigar da lambar da ke cikin imel ɗinka.','A new code was sent.':'An aika sabuwar lamba.','Funding opens in Phase 3 after Paystack/Flutterwave is connected and tested.':'Saka kuɗi zai buɗe a Phase 3, bayan an haɗa Paystack/Flutterwave an gwada.','Fill subject and message.':'Cike take da saƙo.','Ticket sent. We will reply soon.':'An aika korafi. Za mu amsa nan ba da jimawa ba.','Enter your business name.':'Shigar da sunan kasuwancinka.','Application sent. Awaiting admin approval.':'An aika buƙata. Ana jiran amincewar admin.','Approved.':'An amince.','Resolved.':'An rufe.','Link copied.':'An kwafi link ɗin.'};
 function tx(s){return LANG=='ha'&&D[s]?D[s]:s}
+function msgHtml(){return S.msg?'<div class="msg'+(S.err?' err':'')+'" role="status">'+esc(tx(S.msg))+'</div>':''}
 function applyLang(){
- $('lang').textContent=LANG=='ha'?'HA | EN':'EN | HA';
+ $('lang').innerHTML=LANG=='en'?'<b>EN</b> | HA':'EN | <b>HA</b>';
  if(LANG!='ha')return;
  var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n,L=[];
  while(n=w.nextNode())L.push(n);
- L.forEach(function(n){var tg=n.parentNode.tagName;if(tg=='SCRIPT'||tg=='STYLE')return;var s=n.nodeValue.trim();if(!s)return;
-  var r=D[s]||(s.indexOf('Hello, ')==0?'Sannu, '+s.slice(7):null);if(r)n.nodeValue=n.nodeValue.replace(s,r)});
+ L.forEach(function(n){var tg=n.parentNode.tagName;if(tg=='SCRIPT'||tg=='STYLE')return;var s=n.nodeValue.trim();if(!s)return;var r=D[s];if(r)n.nodeValue=n.nodeValue.replace(s,r)});
 }
-function setLang(l){LANG=l;try{localStorage.setItem('rgd_lang',l)}catch(e){}S.user?render():authView()}
-function msgHtml(){return S.msg?'<div class="msg'+(S.err?' err':'')+'" role="status">'+esc(tx(S.msg))+'</div>':''}
-function dt(s){return new Date(s).toLocaleString('en-NG',{dateStyle:'medium',timeStyle:'short'})}
+function setLang(l){LANG=l;ls('rgd_lang2',l);S.user?render():authView()}
+function chrome(on){$('nav').hidden=!on;$('wa').hidden=!on;if(!on)$('who').textContent=''}
 
 // ---------- Auth ----------
 function authView(){
  if(S.mode=='verify')return verifyView();
- var su=S.mode=='signup';
- $('nav').hidden=true;$('who').textContent='';
- $('app').innerHTML='<h2>'+(su?'Sign up':'Log in')+'</h2>'+msgHtml()+'<div class="card"><div class="tabs"><button data-mode="login" aria-pressed="'+!su+'">Log in</button><button data-mode="signup" aria-pressed="'+su+'">Sign up</button></div>'+
- (su?'<label for="fn">Full name</label><input id="fn" autocomplete="name"><label for="ph">Phone (080...)</label><input id="ph" inputmode="tel" maxlength="11" autocomplete="tel"><label for="rc">Referral code (optional)</label><input id="rc" maxlength="20" autocapitalize="none">':'')+
- '<label for="em">Email</label><input id="em" type="email" autocomplete="email"><label for="pw">Password (min 8)</label><input id="pw" type="password" autocomplete="'+(su?'new-password':'current-password')+'"><button class="btn gold full" id="go">'+(su?'Create account':'Log in')+'</button></div>'+
- '<p class="note">Your wallet is protected by database security rules.</p>';applyLang();
+ var su=S.mode=='signup';chrome(false);
+ $('app').innerHTML='<h2>Welcome to RABSON G DATA</h2>'+msgHtml()+'<div class="card"><div class="tabs"><button data-mode="login" aria-pressed="'+!su+'">Log in</button><button data-mode="signup" aria-pressed="'+su+'">Sign up</button></div>'+
+ (su?'<label for="fn">Full name</label><input id="fn" autocomplete="name"><label for="ph">Phone (080...)</label><input id="ph" inputmode="tel" maxlength="11" autocomplete="tel"><label for="rc">Referral code (optional)</label><input id="rc" maxlength="20" autocapitalize="none" value="'+esc(S.ref)+'">':'')+
+ '<label for="em">Email</label><input id="em" type="email" autocomplete="email"><label for="pw">Password (min 8)</label><input id="pw" type="password" autocomplete="'+(su?'new-password':'current-password')+'"><button class="btn gold full" id="go">'+(su?'Create account':'Log in')+'</button></div><p class="note">Your wallet is protected by database security rules.</p>';applyLang();
 }
 async function doAuth(){
  var em=$('em').value.trim(),pw=$('pw').value;
  if(!/^\S+@\S+\.\S+$/.test(em)||pw.length<8){say('Enter a valid email and a password of at least 8 characters.',1);return authView()}
- $('go').disabled=true;
+ $('go').disabled=true;var r;
  if(S.mode=='signup'){
-  var fn=$('fn').value.trim(),ph=$('ph').value.trim();
+  var fn=$('fn').value.trim(),ph=$('ph').value.trim(),rc=($('rc').value||'').trim().toLowerCase();
   if(fn.length<2||!/^0\d{10}$/.test(ph)){say('Enter your full name and an 11-digit phone number.',1);return authView()}
-  var rc=($('rc').value||'').trim().toLowerCase();
-  var r=await sb.auth.signUp({email:em,password:pw,options:{data:{full_name:fn,phone:ph,referral_code:rc}}});
+  r=await sb.auth.signUp({email:em,password:pw,options:{data:{full_name:fn,phone:ph,referral_code:rc}}});
   if(r.error){say(r.error.message,1);return authView()}
   if(!r.data.session){S.pend=em;S.mode='verify';say('We sent a 6-digit code to your email. Enter it below.');return authView()}
  }else{
-  var r2=await sb.auth.signInWithPassword({email:em,password:pw});
-  if(r2.error){say(r2.error.message,1);return authView()}
+  r=await sb.auth.signInWithPassword({email:em,password:pw});
+  if(r.error){say(r.error.message,1);return authView()}
  }
  say('');boot();
 }
-
 function verifyView(){
- $('nav').hidden=true;$('who').textContent='';
+ chrome(false);
  $('app').innerHTML='<h2>Verify your email</h2>'+msgHtml()+'<div class="card"><p class="note">Code sent to <b>'+esc(S.pend)+'</b></p><label for="otp">6-digit code</label><input id="otp" inputmode="numeric" maxlength="10" autocomplete="one-time-code"><button class="btn gold full" id="vf">Verify</button><button class="btn full" id="rsd">Resend code</button><button class="btn full" data-mode="login">Back to log in</button></div>';applyLang();
 }
 
-// ---------- Data ----------
+// ---------- App ----------
 async function boot(){
  var s=await sb.auth.getSession();
  if(!s.data.session){S.user=null;return authView()}
  S.user=s.data.session.user;
  var p=await sb.from('profiles').select('full_name,phone,role,referral_code').eq('id',S.user.id).maybeSingle();
- S.profile=p.data||{role:'retail'};
+ S.profile=p.data||{role:'retail',full_name:''};
  $('who').textContent=S.profile.role.toUpperCase();
- $('nav').hidden=false;render();
+ chrome(true);render();
 }
 function navHtml(){
- var t=[['home','Home'],['buy','Buy'],['support','Support'],['me','Account']];
- if(S.profile&&S.profile.role=='admin')t.push(['admin','Admin']);
- $('navin').innerHTML=t.map(function(x){return '<button data-tab="'+x[0]+'"'+(S.tab==x[0]?' aria-current="page"':'')+'>'+x[1]+'</button>'}).join('');
+ var t=[['home','🏠','Home'],['tx','⇄','Transactions'],['wallet','👛','Wallet'],['profile','👤','Profile']];
+ $('navin').innerHTML=t.map(function(x){return '<button data-tab="'+x[0]+'"'+(S.tab==x[0]&&!S.sub?' aria-current="page"':'')+'><span>'+x[1]+'</span>'+x[2]+'</button>'}).join('');
+}
+function txRow(x){return '<div class="row"><div>'+esc(x.description||x.kind)+'<div class="note">'+dt(x.created_at)+'</div></div><b class="'+(x.kind=='credit'?'ok':'bad')+'">'+(x.kind=='credit'?'+':'-')+naira(x.amount)+'</b></div>'}
+function noneP(t){return '<p class="note">'+t+'</p>'}
+function item(ic,label,attr){return '<button class="item" '+attr+'><span class="ic">'+ic+'</span><span class="lbl">'+label+'</span><span>›</span></button>'}
+function refLink(){return location.origin+location.pathname+(S.profile.referral_code?'?ref='+S.profile.referral_code:'')}
+
+async function homeView(){
+ var u=S.user.id;
+ var w=await sb.from('wallets').select('balance').eq('user_id',u).maybeSingle();
+ var rf=await sb.from('referrals').select('reward').eq('referrer_id',u);
+ var bonus=(rf.data||[]).reduce(function(a,x){return a+Number(x.reward||0)},0);
+ var t=await sb.from('wallet_transactions').select('kind,amount,description,created_at').eq('user_id',u).order('created_at',{ascending:false}).limit(3);
+ var G=[['🌐','Data','data'],['📞','Airtime','soon'],['📺','Cable','soon'],['💡','Electricity','soon'],['💳','Data Card','soon'],['🎁','Bonus to Wallet','soon'],['🔄','Airtime to Cash','soon'],['🔢','Recharge Pin','soon'],['🎓','Edu Pin','soon'],['👥','My Referrals','refer'],['🏪','Wholesale','wholesale'],['🎧','Support','contact']];
+ var nm=(S.profile.full_name||'').split(' ')[0];
+ return '<div class="card"><div class="note">Welcome!</div><b>'+esc(nm)+' 👋</b></div>'+msgHtml()+
+ '<div class="hero"><div class="two"><div><small>Account Balance</small><div class="bal">'+money(w.data&&w.data.balance)+' <button class="eye" id="eye" aria-label="Show or hide balance">'+(S.hide?'🙈':'👁️')+'</button></div></div><div><small>Referral Bonus</small><div class="bal">'+money(bonus)+'</div></div></div><button class="btn gold full" data-tab="wallet">Fund Wallet</button></div>'+
+ '<div class="card"><b>Dedicated account number</b><div class="note">Available after the payment provider is connected (Phase 3).</div></div>'+
+ '<div class="grid">'+G.map(function(g){return '<button class="tile" data-sub="'+g[2]+'" data-name="'+g[1]+'"><span>'+g[0]+'</span>'+g[1]+'</button>'}).join('')+'</div>'+
+ '<button class="promo" id="copy">Refer people and earn. Tap to copy your referral link.</button>'+
+ '<h2>Recent transactions</h2><div class="card">'+((t.data&&t.data.length)?t.data.map(txRow).join(''):noneP('No transactions yet.'))+'</div>';
+}
+async function txView(){
+ var u=S.user.id;
+ var a=await sb.from('vtu_transactions').select('service,network,recipient,amount,status,created_at').eq('user_id',u).order('created_at',{ascending:false}).limit(20);
+ var b=await sb.from('wallet_transactions').select('kind,amount,description,created_at').eq('user_id',u).order('created_at',{ascending:false}).limit(20);
+ return '<h2>Transactions</h2><div class="card"><h3>Purchases</h3>'+((a.data&&a.data.length)?a.data.map(function(x){return '<div class="row"><div>'+esc(x.service+' '+(x.network||'')+' → '+x.recipient)+'<div class="note">'+dt(x.created_at)+'</div></div><div><b>'+naira(x.amount)+'</b><br><span class="chip">'+esc(x.status)+'</span></div></div>'}).join(''):noneP('No purchases yet.'))+'</div><div class="card"><h3>Wallet history</h3>'+((b.data&&b.data.length)?b.data.map(txRow).join(''):noneP('No transactions yet.'))+'</div>';
+}
+async function walletView(){
+ var w=await sb.from('wallets').select('balance').eq('user_id',S.user.id).maybeSingle();
+ return '<h2>Wallet</h2>'+msgHtml()+'<div class="hero"><small>Account Balance</small><div class="bal">'+money(w.data&&w.data.balance)+'</div></div><div class="card"><h3>Fund wallet</h3><label for="fa">Amount (₦)</label><input id="fa" type="number" inputmode="numeric" placeholder="1000"><button class="btn full" id="fund">Pay with Paystack</button><button class="btn gold full" id="fund">Pay with Flutterwave</button></div>';
+}
+function profileView(){
+ var p=S.profile,ini=(p.full_name||'?').trim().slice(0,1).toUpperCase();
+ return '<div class="center"><div class="avatar">'+esc(ini)+'</div><h2 style="margin:8px 0 0">'+esc(p.full_name)+'</h2><div class="note">'+esc(S.user.email)+'</div></div>'+msgHtml()+'<div class="card list">'+
+ item('👤','Profile','data-sub="info"')+item('💲','Pricing','data-sub="data"')+item('📞','Contact Us','data-sub="contact"')+item('📝','Log Complaint','data-sub="complaint"')+item('👥','My Referrals','data-sub="refer"')+item('⬆️','Upgrade to Wholesale','data-sub="wholesale"')+item('📤','Share App','id="share"')+item('🌓','Dark Mode','id="dark"')+item('🌐','Language','id="lang2"')+item('⚖️','Legal','data-sub="legal"')+(p.role=='admin'?item('🛡️','Admin Panel','data-sub="admin"'):'')+item('🚪','Log Out','id="out"')+'</div>';
+}
+async function subView(){
+ var s=S.sub,u=S.user.id,h='<button class="back" data-back>‹ Back</button>'+msgHtml();
+ if(s=='info')return h+'<h2>Profile</h2><div class="card"><div class="row"><span>Name</span><b>'+esc(S.profile.full_name)+'</b></div><div class="row"><span>Phone</span><b>'+esc(S.profile.phone)+'</b></div><div class="row"><span>Email</span><b>'+esc(S.user.email)+'</b></div><div class="row"><span>Referral code</span><b>'+esc(S.profile.referral_code)+'</b></div></div>';
+ if(s=='soon')return h+'<h2>'+esc(S.name)+'</h2><div class="card">'+noneP('Coming in Phase 3 after the VTU provider is connected and tested.')+'</div>';
+ if(s=='data'){var pl=await sb.rpc('my_plans'),rows=pl.data||[];
+  return h+'<h2>Data plans</h2><div class="card">'+(rows.length?rows.map(function(x){return '<div class="row"><div><b>'+esc(x.network)+' '+esc(x.plan_type)+'</b><div class="note">'+esc(x.name)+' · '+esc(x.validity||'')+'</div></div><b>'+naira(x.price)+'</b></div>'}).join(''):noneP('No plans yet. Plans appear only after the admin connects the VTU provider (Phase 3). We never show invented prices.'))+'</div>'}
+ if(s=='refer'){var rf=await sb.from('referrals').select('reward').eq('referrer_id',u),d=rf.data||[],b=d.reduce(function(a,x){return a+Number(x.reward||0)},0);
+  return h+'<h2>My Referrals</h2><div class="card"><div class="note">Your referral code</div><h2 style="margin:4px 0">'+esc(S.profile.referral_code)+'</h2><button class="btn gold full" id="copy">Copy referral link</button><div class="row"><span>Referrals:</span><b>'+d.length+'</b></div><div class="row"><span>Bonus earned:</span><b>'+naira(b)+'</b></div>'+noneP('Rewards are set by the admin and are paid once Phase 3 rules are ready.')+'</div>'}
+ if(s=='wholesale'){var wa=await sb.from('wholesale_accounts').select('status,business_name').eq('user_id',u).maybeSingle();
+  return h+'<h2>Wholesale</h2><div class="card">'+(wa.data?'<p>Status: <span class="chip">'+esc(wa.data.status)+'</span></p>'+noneP('Wholesale prices open only after admin approval.'):'<label for="bn">Business name</label><input id="bn" maxlength="80"><button class="btn gold full" id="wapply">Apply for wholesale</button>')+'</div>'}
+ if(s=='contact')return h+'<h2>Support</h2><div class="card"><a class="btn full" href="tel:08163379819">📞 08163379819</a><a class="btn gold full" href="https://wa.me/2347019909229" target="_blank" rel="noopener">💬 WhatsApp 07019909229</a><a class="btn full" href="mailto:engrrabiunasir@gmail.com">✉️ engrrabiunasir@gmail.com</a></div>';
+ if(s=='complaint'){var tk=await sb.from('support_tickets').select('subject,status,admin_reply,created_at').eq('user_id',u).order('created_at',{ascending:false}).limit(10);
+  return h+'<h2>Open a ticket</h2><div class="card"><label for="ts">Subject</label><input id="ts" maxlength="120"><label for="tm">Message</label><textarea id="tm" rows="4" maxlength="1000"></textarea><button class="btn gold full" id="tsend">Send</button></div><h3>My tickets</h3><div class="card">'+((tk.data&&tk.data.length)?tk.data.map(function(x){return '<div class="row"><div>'+esc(x.subject)+'<div class="note">'+dt(x.created_at)+(x.admin_reply?' · '+esc(x.admin_reply):'')+'</div></div><span class="chip">'+esc(x.status)+'</span></div>'}).join(''):noneP('No tickets.'))+'</div>'}
+ if(s=='legal')return h+'<h2>Privacy, Security & Terms</h2><div class="card">'+noneP('This is a pre-launch version. The full Terms of Use and Privacy Policy will be published before public launch.')+noneP('We store your data securely and never show private keys in the app.')+'</div>';
+ if(s=='admin'){var a=await sb.from('wholesale_accounts').select('user_id,business_name,status').eq('status','pending'),b2=await sb.from('support_tickets').select('id,subject,message,status').neq('status','resolved').limit(20);
+  return h+'<h2>Admin</h2><div class="card"><h3>Pending wholesale</h3>'+((a.data&&a.data.length)?a.data.map(function(x){return '<div class="row"><div>'+esc(x.business_name)+'<div class="note">'+esc(x.user_id.slice(0,8))+'</div></div><button class="btn" data-ap="'+x.user_id+'">Approve</button></div>'}).join(''):noneP('None.'))+'</div><div class="card"><h3>Open tickets</h3>'+((b2.data&&b2.data.length)?b2.data.map(function(x){return '<div class="row"><div><b>'+esc(x.subject)+'</b><div class="note">'+esc(x.message)+'</div></div><button class="btn" data-rs="'+x.id+'">Resolve</button></div>'}).join(''):noneP('None.'))+'</div>'+noneP('Prices, VTU provider and rates are managed in Phase 3.')}
+ return h;
 }
 async function render(){
- navHtml();$('app').innerHTML='<p class="note">Loading...</p>';
+ navHtml();$('app').innerHTML=noneP('Loading...');applyLang();
  var h='';
- if(S.tab=='home'){
-  var w=await sb.from('wallets').select('balance').eq('user_id',S.user.id).maybeSingle();
-  var t=await sb.from('wallet_transactions').select('kind,amount,description,reference,created_at').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(15);
-  h='<div class="hero"><small>Wallet balance</small><div class="bal">'+naira(w.data&&w.data.balance)+'</div><div class="note" style="color:#dbe6ff">Hello, '+esc(S.profile.full_name||'')+'</div></div>'+msgHtml()+
-  '<button class="btn gold full" id="fund">Fund wallet</button><h2>Transaction history</h2><div class="card">'+
-  ((t.data&&t.data.length)?t.data.map(function(x){return '<div class="row"><div>'+esc(x.description||x.kind)+'<div class="note">'+dt(x.created_at)+'</div></div><b class="'+(x.kind=='credit'?'ok':'bad')+'">'+(x.kind=='credit'?'+':'-')+naira(x.amount)+'</b></div>'}).join(''):'<p class="note">No transactions yet.</p>')+'</div>';
- }
- if(S.tab=='buy'){
-  var pl=await sb.rpc('my_plans');
-  var rows=pl.data||[];
-  h='<h2>Buy data & airtime</h2>'+msgHtml()+'<div class="card"><h3>Data plans</h3>'+
-  (rows.length?rows.map(function(x){return '<div class="row"><div><b>'+esc(x.network)+' '+esc(x.plan_type)+'</b><div class="note">'+esc(x.name)+' · '+esc(x.validity||'')+'</div></div><div><b>'+naira(x.price)+'</b><br><button class="btn" disabled>Buy</button></div></div>'}).join(''):'<p class="note">No plans yet. Plans appear only after the admin connects the VTU provider (Phase 3). We never show invented prices.</p>')+'</div>';
- }
- if(S.tab=='support'){
-  var tk=await sb.from('support_tickets').select('subject,status,admin_reply,created_at').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(10);
-  h='<h2>Support</h2>'+msgHtml()+'<div class="card"><a class="btn full" href="tel:08163379819">📞 08163379819</a><a class="btn gold full" href="https://wa.me/2347019909229" target="_blank" rel="noopener">💬 WhatsApp 07019909229</a><a class="btn full" href="mailto:Rabsong@gmail.com">✉️ Rabsong@gmail.com</a></div>'+
-  '<div class="card"><h3>Open a ticket</h3><label for="ts">Subject</label><input id="ts" maxlength="120"><label for="tm">Message</label><textarea id="tm" rows="4" maxlength="1000"></textarea><button class="btn gold full" id="tsend">Send</button></div><h3>My tickets</h3><div class="card">'+
-  ((tk.data&&tk.data.length)?tk.data.map(function(x){return '<div class="row"><div>'+esc(x.subject)+'<div class="note">'+dt(x.created_at)+(x.admin_reply?' · Reply: '+esc(x.admin_reply):'')+'</div></div><span class="chip">'+esc(x.status)+'</span></div>'}).join(''):'<p class="note">No tickets.</p>')+'</div>';
- }
- if(S.tab=='me'){
-  var wa=await sb.from('wholesale_accounts').select('status,business_name').eq('user_id',S.user.id).maybeSingle();
-  h='<h2>Account</h2>'+msgHtml()+'<div class="card"><div class="row"><span>Name</span><b>'+esc(S.profile.full_name)+'</b></div><div class="row"><span>Phone</span><b>'+esc(S.profile.phone)+'</b></div><div class="row"><span>Email</span><b>'+esc(S.user.email)+'</b></div><div class="row"><span>Referral code</span><b>'+esc(S.profile.referral_code)+'</b></div></div>'+
-  '<div class="card"><h3>Wholesale</h3>'+(wa.data?'<p>Status: <span class="chip">'+esc(wa.data.status)+'</span></p><p class="note">Wholesale prices open only after admin approval.</p>':'<label for="bn">Business name</label><input id="bn" maxlength="80"><button class="btn gold full" id="wapply">Apply for wholesale</button>')+'</div><button class="btn full" id="out">Log out</button>';
- }
- if(S.tab=='admin'){
-  var a=await sb.from('wholesale_accounts').select('user_id,business_name,status').eq('status','pending');
-  var b=await sb.from('support_tickets').select('id,subject,message,status').neq('status','resolved').limit(20);
-  h='<h2>Admin</h2>'+msgHtml()+'<div class="card"><h3>Pending wholesale</h3>'+((a.data&&a.data.length)?a.data.map(function(x){return '<div class="row"><div>'+esc(x.business_name)+'<div class="note">'+esc(x.user_id.slice(0,8))+'</div></div><div><button class="btn" data-ap="'+x.user_id+'">Approve</button></div></div>'}).join(''):'<p class="note">None.</p>')+'</div><div class="card"><h3>Open tickets</h3>'+((b.data&&b.data.length)?b.data.map(function(x){return '<div class="row"><div><b>'+esc(x.subject)+'</b><div class="note">'+esc(x.message)+'</div></div><button class="btn" data-rs="'+x.id+'">Resolve</button></div>'}).join(''):'<p class="note">None.</p>')+'</div><p class="note">Prices, VTU provider and rates are managed in Phase 3.</p>';
- }
+ if(S.sub)h=await subView();
+ else if(S.tab=='home')h=await homeView();
+ else if(S.tab=='tx')h=await txView();
+ else if(S.tab=='wallet')h=await walletView();
+ else h=profileView();
  $('app').innerHTML=h;applyLang();
 }
+async function copyTxt(t){try{await navigator.clipboard.writeText(t);say('Link copied.')}catch(e){window.prompt('Copy:',t)}}
 
 document.addEventListener('click',async function(e){
- var el=e.target.closest('[data-mode],[data-tab],[data-ap],[data-rs],#go,#fund,#tsend,#wapply,#out,#vf,#rsd,#lang');if(!el)return;
- if(el.dataset.mode){S.mode=el.dataset.mode;say('');return authView()}
- if(el.id=='go')return doAuth();
- if(el.id=='lang')return setLang(LANG=='ha'?'en':'ha');
- if(el.id=='vf'){var c=$('otp').value.trim();if(c.length<6){say('Enter the code from your email.',1);return authView()}
+ var el=e.target.closest('[data-mode],[data-tab],[data-sub],[data-back],[data-ap],[data-rs],#go,#vf,#rsd,#lang,#lang2,#tsend,#wapply,#out,#share,#dark,#copy,#eye,#fund');if(!el)return;
+ var id=el.id,d=el.dataset;
+ if(d.mode){S.mode=d.mode;say('');return authView()}
+ if(id=='go')return doAuth();
+ if(id=='lang'||id=='lang2')return setLang(LANG=='ha'?'en':'ha');
+ if(id=='vf'){var c=$('otp').value.trim();if(c.length<6){say('Enter the code from your email.',1);return authView()}
   var v=await sb.auth.verifyOtp({email:S.pend,token:c,type:'signup'});if(v.error){say(v.error.message,1);return authView()}
   say('');return boot()}
- if(el.id=='rsd'){var rr=await sb.auth.resend({type:'signup',email:S.pend});say(rr.error?rr.error.message:'A new code was sent.',!!rr.error);return authView()}
- if(el.dataset.tab){S.tab=el.dataset.tab;say('');return render()}
- if(el.id=='fund'){say('Funding opens in Phase 3 after Paystack/Flutterwave is connected and tested.');return render()}
- if(el.id=='out'){await sb.auth.signOut();S.tab='home';return boot()}
- if(el.id=='tsend'){var s=$('ts').value.trim(),m=$('tm').value.trim();if(!s||!m){say('Fill subject and message.',1);return render()}
+ if(id=='rsd'){var rr=await sb.auth.resend({type:'signup',email:S.pend});say(rr.error?rr.error.message:'A new code was sent.',!!rr.error);return authView()}
+ if(d.tab){S.tab=d.tab;S.sub='';say('');return render()}
+ if(d.sub){S.sub=d.sub;S.name=d.name||'';say('');return render()}
+ if(d.back!==undefined){S.sub='';say('');return render()}
+ if(id=='eye'){S.hide=!S.hide;ls('rgd_hide',S.hide?'1':'0');return render()}
+ if(id=='dark'){TH=TH=='dark'?'light':'dark';ls('rgd_th',TH);document.documentElement.setAttribute('data-theme',TH);return}
+ if(id=='copy'){await copyTxt(refLink());return render()}
+ if(id=='share'){var url=refLink();if(navigator.share){try{await navigator.share({title:'RABSON G DATA',url:url})}catch(x){}return}await copyTxt(url);return render()}
+ if(id=='fund'){say('Funding opens in Phase 3 after Paystack/Flutterwave is connected and tested.');return render()}
+ if(id=='out'){await sb.auth.signOut();S.tab='home';S.sub='';S.user=null;return boot()}
+ if(id=='tsend'){var s=$('ts').value.trim(),m=$('tm').value.trim();if(!s||!m){say('Fill subject and message.',1);return render()}
   var r=await sb.from('support_tickets').insert({user_id:S.user.id,subject:s,message:m});say(r.error?r.error.message:'Ticket sent. We will reply soon.',!!r.error);return render()}
- if(el.id=='wapply'){var n=$('bn').value.trim();if(n.length<2){say('Enter your business name.',1);return render()}
+ if(id=='wapply'){var n=$('bn').value.trim();if(n.length<2){say('Enter your business name.',1);return render()}
   var r2=await sb.from('wholesale_accounts').insert({user_id:S.user.id,business_name:n,status:'pending'});say(r2.error?r2.error.message:'Application sent. Awaiting admin approval.',!!r2.error);return render()}
- if(el.dataset.ap){var r3=await sb.from('wholesale_accounts').update({status:'approved',approved_by:S.user.id,approved_at:new Date().toISOString()}).eq('user_id',el.dataset.ap);
-  if(!r3.error)await sb.from('admin_audit_logs').insert({admin_id:S.user.id,action:'approve_wholesale',target:el.dataset.ap});say(r3.error?r3.error.message:'Approved.',!!r3.error);return render()}
- if(el.dataset.rs){var r4=await sb.from('support_tickets').update({status:'resolved'}).eq('id',el.dataset.rs);say(r4.error?r4.error.message:'Resolved.',!!r4.error);return render()}
+ if(d.ap){var r3=await sb.from('wholesale_accounts').update({status:'approved',approved_by:S.user.id,approved_at:new Date().toISOString()}).eq('user_id',d.ap);
+  if(!r3.error)await sb.from('admin_audit_logs').insert({admin_id:S.user.id,action:'approve_wholesale',target:d.ap});say(r3.error?r3.error.message:'Approved.',!!r3.error);return render()}
+ if(d.rs){var r4=await sb.from('support_tickets').update({status:'resolved'}).eq('id',d.rs);say(r4.error?r4.error.message:'Resolved.',!!r4.error);return render()}
 });
 boot();
 </script>

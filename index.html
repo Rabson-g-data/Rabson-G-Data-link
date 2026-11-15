@@ -42,6 +42,7 @@ button.chip{cursor:pointer}
 .ic{width:36px;height:36px;border-radius:50%;background:var(--chip);display:grid;place-items:center}
 .avatar{width:72px;height:72px;border-radius:50%;background:var(--navy);color:var(--gold2);border:2px solid var(--gold);display:grid;place-items:center;font:800 28px system-ui;margin:14px auto 0}
 .center{text-align:center}
+.pw{position:relative}.pw input{padding-right:46px}.eye2{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;font-size:18px;cursor:pointer}
 .back{background:none;border:0;color:var(--royal);font:600 15px system-ui;padding:12px 0 0;cursor:pointer}
 .tabs{display:flex;gap:8px;margin-bottom:6px}
 .tabs button{flex:1;padding:10px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:600 14px system-ui;cursor:pointer}
@@ -84,7 +85,7 @@ var D={'Welcome to RABSON G DATA':'Barka da zuwa RABSON G DATA','Log in':'Shiga'
 'Pricing':'Farashi','Contact Us':'Tuntuɓe Mu','Log Complaint':'Aika Korafi','Upgrade to Wholesale':'Koma Wholesale','Share App':'Raba App','Dark Mode':'Yanayin Duhu','Language':'Harshe','Legal':'Doka da Sirri','Admin Panel':'Allon Admin','Log Out':'Fita','Name':'Suna','Phone':'Waya','Referral code':'Lambar referral','‹ Back':'‹ Koma','Data plans':'Kunshin data','No plans yet. Plans appear only after the admin connects the VTU provider (Phase 3). We never show invented prices.':'Babu kunshin data tukuna. Za su bayyana ne bayan admin ya haɗa VTU provider (Phase 3). Ba ma nuna farashin bogi.','Coming in Phase 3 after the VTU provider is connected and tested.':'Zai zo a Phase 3, bayan an haɗa VTU provider an gwada.','Your referral code':'Lambar referral ɗinka','Copy referral link':'Kwafi link ɗin referral','Referrals:':'Waɗanda ka gayyata:','Bonus earned:':'Ladan da ka samu:','Rewards are set by the admin and are paid once Phase 3 rules are ready.':'Admin ne ke saita lada, kuma za a biya bayan ƙa’idojin Phase 3 sun kammala.',
 'Status:':'Matsayi:','Wholesale prices open only after admin approval.':'Farashin wholesale yana buɗewa ne bayan admin ya amince.','Business name':'Sunan kasuwanci','Apply for wholesale':'Nemi wholesale','Open a ticket':'Aika korafi','Subject':'Take','Message':'Saƙo','Send':'Aika','My tickets':'Korafe-korafena','No tickets.':'Babu korafi.','Privacy, Security & Terms':'Sirri, Tsaro da Sharuɗɗa','This is a pre-launch version. The full Terms of Use and Privacy Policy will be published before public launch.':'Wannan sigar gwaji ce. Cikakkun Sharuɗɗan Amfani da Manufar Sirri za a wallafa su kafin a buɗe wa jama’a.','We store your data securely and never show private keys in the app.':'Muna adana bayananka cikin tsaro, kuma ba ma nuna maɓallan sirri a cikin app.',
 'Admin':'Admin','Pending wholesale':'Wholesale da ke jira','Open tickets':'Korafe-korafe a buɗe','None.':'Babu.','Approve':'Amince','Resolve':'Rufe','Prices, VTU provider and rates are managed in Phase 3.':'Ana sarrafa farashi, VTU provider da rates a Phase 3.',
-'Enter a valid email and a password of at least 8 characters.':'Shigar da imel mai kyau da password na akalla haruffa 8.','Enter your full name and an 11-digit phone number.':'Shigar da cikakken sunanka da lambar waya mai lambobi 11.','We sent a 6-digit code to your email. Enter it below.':'Mun aika lambar lambobi 6 zuwa imel ɗinka. Shigar da ita a ƙasa.','Enter the code from your email.':'Shigar da lambar da ke cikin imel ɗinka.','A new code was sent.':'An aika sabuwar lamba.','Funding opens in Phase 3 after Paystack/Flutterwave is connected and tested.':'Saka kuɗi zai buɗe a Phase 3, bayan an haɗa Paystack/Flutterwave an gwada.','Fill subject and message.':'Cike take da saƙo.','Ticket sent. We will reply soon.':'An aika korafi. Za mu amsa nan ba da jimawa ba.','Enter your business name.':'Shigar da sunan kasuwancinka.','Application sent. Awaiting admin approval.':'An aika buƙata. Ana jiran amincewar admin.','Approved.':'An amince.','Resolved.':'An rufe.','Link copied.':'An kwafi link ɗin.'};
+'Enter a valid email and a password of at least 8 characters.':'Shigar da imel mai kyau da password na akalla haruffa 8.','Enter your full name and an 11-digit phone number.':'Shigar da cikakken sunanka da lambar waya mai lambobi 11.','We sent you an email. Tap the link inside it, then log in. If it has a 6-digit code, enter it below.':'Mun aiko maka imel. Ka danna link ɗin da ke ciki, sai ka shiga. Idan yana da lambar lambobi 6, ka shigar da ita a ƙasa.','Enter the code from your email.':'Shigar da lambar da ke cikin imel ɗinka.','A new code was sent.':'An aika sabuwar lamba.','Funding opens in Phase 3 after Paystack/Flutterwave is connected and tested.':'Saka kuɗi zai buɗe a Phase 3, bayan an haɗa Paystack/Flutterwave an gwada.','Fill subject and message.':'Cike take da saƙo.','Ticket sent. We will reply soon.':'An aika korafi. Za mu amsa nan ba da jimawa ba.','Enter your business name.':'Shigar da sunan kasuwancinka.','Application sent. Awaiting admin approval.':'An aika buƙata. Ana jiran amincewar admin.','Approved.':'An amince.','Resolved.':'An rufe.','Link copied.':'An kwafi link ɗin.','Confirm password':'Tabbatar da password','Forgot password?':'Ka manta password?','Reset password':'Sake saita password','Send reset link':'Aika link ɗin sake saitawa','New password':'Sabon password','Save password':'Ajiye password','Passwords do not match.':'Passwords ɗin biyu ba iri ɗaya ba ne.','Password must be at least 8 characters.':'Password ya zama akalla haruffa 8.','Enter a valid email.':'Shigar da imel mai kyau.','A reset link was sent to your email.':'An aika link ɗin sake saitawa zuwa imel ɗinka.','Password changed.':'An canza password.','This phone number or email may already be registered. Try another number, or log in.':'Wataƙila an riga an yi rajista da wannan lambar waya ko imel. Gwada wata lamba, ko ka shiga.'};
 function tx(s){return LANG=='ha'&&D[s]?D[s]:s}
 function msgHtml(){return S.msg?'<div class="msg'+(S.err?' err':'')+'" role="status">'+esc(tx(S.msg))+'</div>':''}
 function applyLang(){
@@ -98,12 +99,18 @@ function setLang(l){LANG=l;ls('rgd_lang2',l);S.user?render():authView()}
 function chrome(on){$('nav').hidden=!on;$('wa').hidden=!on;if(!on)$('who').textContent=''}
 
 // ---------- Auth ----------
+function pwField(id,label,ac){return '<label for="'+id+'">'+label+'</label><div class="pw"><input id="'+id+'" type="password" autocomplete="'+ac+'"><button type="button" class="eye2" data-eye="'+id+'" aria-label="Show or hide password">👁️</button></div>'}
+function pwView(){
+ var fg=S.mode=='forgot';chrome(false);
+ $('app').innerHTML='<h2>'+(fg?'Forgot password?':'Reset password')+'</h2>'+msgHtml()+'<div class="card">'+(fg?'<label for="em">Email</label><input id="em" type="email" autocomplete="email"><button class="btn gold full" id="fg">Send reset link</button>':pwField('pw','New password','new-password')+pwField('pw2','Confirm password','new-password')+'<button class="btn gold full" id="rst">Save password</button>')+'<button class="btn full" data-mode="login">Back to log in</button></div>';applyLang();
+}
 function authView(){
  if(S.mode=='verify')return verifyView();
+ if(S.mode=='forgot'||S.mode=='reset')return pwView();
  var su=S.mode=='signup';chrome(false);
  $('app').innerHTML='<h2>Welcome to RABSON G DATA</h2>'+msgHtml()+'<div class="card"><div class="tabs"><button data-mode="login" aria-pressed="'+!su+'">Log in</button><button data-mode="signup" aria-pressed="'+su+'">Sign up</button></div>'+
  (su?'<label for="fn">Full name</label><input id="fn" autocomplete="name"><label for="ph">Phone (080...)</label><input id="ph" inputmode="tel" maxlength="11" autocomplete="tel"><label for="rc">Referral code (optional)</label><input id="rc" maxlength="20" autocapitalize="none" value="'+esc(S.ref)+'">':'')+
- '<label for="em">Email</label><input id="em" type="email" autocomplete="email"><label for="pw">Password (min 8)</label><input id="pw" type="password" autocomplete="'+(su?'new-password':'current-password')+'"><button class="btn gold full" id="go">'+(su?'Create account':'Log in')+'</button></div><p class="note">Your wallet is protected by database security rules.</p>';applyLang();
+ '<label for="em">Email</label><input id="em" type="email" autocomplete="email">'+pwField('pw','Password (min 8)',su?'new-password':'current-password')+(su?pwField('pw2','Confirm password','new-password'):'')+'<button class="btn gold full" id="go">'+(su?'Create account':'Log in')+'</button>'+(su?'':'<button class="back" data-mode="forgot">Forgot password?</button>')+'</div><p class="note">Your wallet is protected by database security rules.</p>';applyLang();
 }
 async function doAuth(){
  var em=$('em').value.trim(),pw=$('pw').value;
@@ -112,9 +119,10 @@ async function doAuth(){
  if(S.mode=='signup'){
   var fn=$('fn').value.trim(),ph=$('ph').value.trim(),rc=($('rc').value||'').trim().toLowerCase();
   if(fn.length<2||!/^0\d{10}$/.test(ph)){say('Enter your full name and an 11-digit phone number.',1);return authView()}
+  if(pw!==$('pw2').value){say('Passwords do not match.',1);return authView()}
   r=await sb.auth.signUp({email:em,password:pw,options:{data:{full_name:fn,phone:ph,referral_code:rc}}});
-  if(r.error){say(r.error.message,1);return authView()}
-  if(!r.data.session){S.pend=em;S.mode='verify';say('We sent a 6-digit code to your email. Enter it below.');return authView()}
+  if(r.error){say(/database error/i.test(r.error.message)?'This phone number or email may already be registered. Try another number, or log in.':r.error.message,1);return authView()}
+  if(!r.data.session){S.pend=em;S.mode='verify';say('We sent you an email. Tap the link inside it, then log in. If it has a 6-digit code, enter it below.');return authView()}
  }else{
   r=await sb.auth.signInWithPassword({email:em,password:pw});
   if(r.error){say(r.error.message,1);return authView()}
@@ -128,6 +136,7 @@ function verifyView(){
 
 // ---------- App ----------
 async function boot(){
+ if(S.rec)return pwView();
  var s=await sb.auth.getSession();
  if(!s.data.session){S.user=null;return authView()}
  S.user=s.data.session.user;
@@ -206,9 +215,15 @@ async function render(){
 async function copyTxt(t){try{await navigator.clipboard.writeText(t);say('Link copied.')}catch(e){window.prompt('Copy:',t)}}
 
 document.addEventListener('click',async function(e){
- var el=e.target.closest('[data-mode],[data-tab],[data-sub],[data-back],[data-ap],[data-rs],#go,#vf,#rsd,#lang,#lang2,#tsend,#wapply,#out,#share,#dark,#copy,#eye,#fund');if(!el)return;
+ var el=e.target.closest('[data-mode],[data-tab],[data-sub],[data-back],[data-ap],[data-rs],#go,#vf,#rsd,#lang,#lang2,#tsend,#wapply,#out,#share,#dark,#copy,#eye,#fund,[data-eye],#fg,#rst');if(!el)return;
  var id=el.id,d=el.dataset;
+ if(d.eye){var inp=$(d.eye);inp.type=inp.type=='password'?'text':'password';return}
  if(d.mode){S.mode=d.mode;say('');return authView()}
+ if(id=='fg'){var em2=$('em').value.trim();if(!/^\S+@\S+\.\S+$/.test(em2)){say('Enter a valid email.',1);return pwView()}
+  var rf2=await sb.auth.resetPasswordForEmail(em2,{redirectTo:location.origin+location.pathname});say(rf2.error?rf2.error.message:'A reset link was sent to your email.',!!rf2.error);return pwView()}
+ if(id=='rst'){var a1=$('pw').value,a2=$('pw2').value;if(a1.length<8){say('Password must be at least 8 characters.',1);return pwView()}if(a1!==a2){say('Passwords do not match.',1);return pwView()}
+  var u2=await sb.auth.updateUser({password:a1});if(u2.error){say(u2.error.message,1);return pwView()}
+  S.rec=false;S.mode='login';say('Password changed.');try{history.replaceState(null,'',location.pathname)}catch(x){}return boot()}
  if(id=='go')return doAuth();
  if(id=='lang'||id=='lang2')return setLang(LANG=='ha'?'en':'ha');
  if(id=='vf'){var c=$('otp').value.trim();if(c.length<6){say('Enter the code from your email.',1);return authView()}
@@ -232,6 +247,7 @@ document.addEventListener('click',async function(e){
   if(!r3.error)await sb.from('admin_audit_logs').insert({admin_id:S.user.id,action:'approve_wholesale',target:d.ap});say(r3.error?r3.error.message:'Approved.',!!r3.error);return render()}
  if(d.rs){var r4=await sb.from('support_tickets').update({status:'resolved'}).eq('id',d.rs);say(r4.error?r4.error.message:'Resolved.',!!r4.error);return render()}
 });
+sb.auth.onAuthStateChange(function(ev){if(ev=='PASSWORD_RECOVERY'){S.rec=true;S.mode='reset';S.user=null;say('');pwView()}});
 boot();
 </script>
 </body>

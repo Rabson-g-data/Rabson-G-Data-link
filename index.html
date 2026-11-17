@@ -79,13 +79,18 @@ function naira(n){return '₦'+Number(n||0).toLocaleString('en-NG')}
 function money(n){return S.hide?'₦••••':naira(n)}
 function say(m,e){S.msg=m;S.err=!!e}
 function dt(s){return new Date(s).toLocaleString('en-NG',{dateStyle:'medium',timeStyle:'short'})}
+async function api(body){
+ var r=await sb.functions.invoke('clever-task',{body:body});
+ if(r.error){var m=r.error.message;try{var j=await r.error.context.json();if(j&&j.error)m=j.error}catch(e){}throw new Error(m)}
+ return r.data;
+}
 var D={'Welcome to RABSON G DATA':'Barka da zuwa RABSON G DATA','Log in':'Shiga','Sign up':'Buɗe asusu','Create account':'Buɗe asusu','Full name':'Cikakken suna','Phone (080...)':'Lambar waya (080...)','Referral code (optional)':'Lambar referral (idan akwai)','Email':'Imel','Password (min 8)':'Password (akalla haruffa 8)','Your wallet is protected by database security rules.':'Ana kare wallet ɗinka da dokokin tsaro na database.','Verify your email':'Tabbatar da imel ɗinka','Code sent to':'An aika lambar zuwa','6-digit code':'Lambar lambobi 6','Verify':'Tabbatar','Resend code':'Sake aiko lambar','Back to log in':'Koma zuwa shiga','Loading...':'Ana lodawa...',
 'Welcome!':'Barka!','Package:':'Kunshi:','Account Balance':'Kuɗin Asusu','Referral Bonus':'Ladan Referral','Fund Wallet':'Saka Kuɗi','Dedicated account number':'Lambar asusun banki naka','Available after the payment provider is connected (Phase 3).':'Zai bayyana bayan an haɗa kamfanin biyan kuɗi (Phase 3).','Data':'Data','Airtime':'Airtime','Cable':'Cable TV','Electricity':'Wutar Lantarki','Data Card':'Katin Data','Bonus to Wallet':'Bonus zuwa Wallet','Airtime to Cash':'Canza Airtime zuwa Kuɗi','Recharge Pin':'Recharge Pin','Edu Pin':'Edu Pin','My Referrals':'Referral Dina','Wholesale':'Wholesale','Support':'Tallafi','Refer people and earn. Tap to copy your referral link.':'Gayyaci mutane ka samu riba. Danna don kwafar link ɗin referral ɗinka.','Recent transactions':'Ma’amaloli na kwanan nan','No transactions yet.':'Babu ma’amala tukuna.',
 'Home':'Gida','Transactions':'Ma’amaloli','Wallet':'Wallet','Profile':'Asusu','Purchases':'Siyayya','Wallet history':'Tarihin wallet','No purchases yet.':'Babu siyayya tukuna.','Amount (₦)':'Adadi (₦)','Fund wallet':'Saka kuɗi a wallet','Pay with Paystack':'Biya da Paystack','Pay with Flutterwave':'Biya da Flutterwave',
 'Pricing':'Farashi','Contact Us':'Tuntuɓe Mu','Log Complaint':'Aika Korafi','Upgrade to Wholesale':'Koma Wholesale','Share App':'Raba App','Dark Mode':'Yanayin Duhu','Language':'Harshe','Legal':'Doka da Sirri','Admin Panel':'Allon Admin','Log Out':'Fita','Name':'Suna','Phone':'Waya','Referral code':'Lambar referral','‹ Back':'‹ Koma','Data plans':'Kunshin data','No plans yet. Plans appear only after the admin connects the VTU provider (Phase 3). We never show invented prices.':'Babu kunshin data tukuna. Za su bayyana ne bayan admin ya haɗa VTU provider (Phase 3). Ba ma nuna farashin bogi.','Coming in Phase 3 after the VTU provider is connected and tested.':'Zai zo a Phase 3, bayan an haɗa VTU provider an gwada.','Your referral code':'Lambar referral ɗinka','Copy referral link':'Kwafi link ɗin referral','Referrals:':'Waɗanda ka gayyata:','Bonus earned:':'Ladan da ka samu:','Rewards are set by the admin and are paid once Phase 3 rules are ready.':'Admin ne ke saita lada, kuma za a biya bayan ƙa’idojin Phase 3 sun kammala.',
 'Status:':'Matsayi:','Wholesale prices open only after admin approval.':'Farashin wholesale yana buɗewa ne bayan admin ya amince.','Business name':'Sunan kasuwanci','Apply for wholesale':'Nemi wholesale','Open a ticket':'Aika korafi','Subject':'Take','Message':'Saƙo','Send':'Aika','My tickets':'Korafe-korafena','No tickets.':'Babu korafi.','Privacy, Security & Terms':'Sirri, Tsaro da Sharuɗɗa','This is a pre-launch version. The full Terms of Use and Privacy Policy will be published before public launch.':'Wannan sigar gwaji ce. Cikakkun Sharuɗɗan Amfani da Manufar Sirri za a wallafa su kafin a buɗe wa jama’a.','We store your data securely and never show private keys in the app.':'Muna adana bayananka cikin tsaro, kuma ba ma nuna maɓallan sirri a cikin app.',
 'Admin':'Admin','Pending wholesale':'Wholesale da ke jira','Open tickets':'Korafe-korafe a buɗe','None.':'Babu.','Approve':'Amince','Resolve':'Rufe','Prices, VTU provider and rates are managed in Phase 3.':'Ana sarrafa farashi, VTU provider da rates a Phase 3.',
-'Enter a valid email and a password of at least 8 characters.':'Shigar da imel mai kyau da password na akalla haruffa 8.','Enter your full name and an 11-digit phone number.':'Shigar da cikakken sunanka da lambar waya mai lambobi 11.','We sent you an email. Tap the link inside it, then log in. If it has a 6-digit code, enter it below.':'Mun aiko maka imel. Ka danna link ɗin da ke ciki, sai ka shiga. Idan yana da lambar lambobi 6, ka shigar da ita a ƙasa.','Enter the code from your email.':'Shigar da lambar da ke cikin imel ɗinka.','A new code was sent.':'An aika sabuwar lamba.','Funding opens in Phase 3 after Paystack/Flutterwave is connected and tested.':'Saka kuɗi zai buɗe a Phase 3, bayan an haɗa Paystack/Flutterwave an gwada.','Fill subject and message.':'Cike take da saƙo.','Ticket sent. We will reply soon.':'An aika korafi. Za mu amsa nan ba da jimawa ba.','Enter your business name.':'Shigar da sunan kasuwancinka.','Application sent. Awaiting admin approval.':'An aika buƙata. Ana jiran amincewar admin.','Approved.':'An amince.','Resolved.':'An rufe.','Link copied.':'An kwafi link ɗin.','Confirm password':'Tabbatar da password','Forgot password?':'Ka manta password?','Reset password':'Sake saita password','Send reset link':'Aika link ɗin sake saitawa','New password':'Sabon password','Save password':'Ajiye password','Passwords do not match.':'Passwords ɗin biyu ba iri ɗaya ba ne.','Password must be at least 8 characters.':'Password ya zama akalla haruffa 8.','Enter a valid email.':'Shigar da imel mai kyau.','A reset link was sent to your email.':'An aika link ɗin sake saitawa zuwa imel ɗinka.','Password changed.':'An canza password.','This phone number or email may already be registered. Try another number, or log in.':'Wataƙila an riga an yi rajista da wannan lambar waya ko imel. Gwada wata lamba, ko ka shiga.'};
+'Enter a valid email and a password of at least 8 characters.':'Shigar da imel mai kyau da password na akalla haruffa 8.','Enter your full name and an 11-digit phone number.':'Shigar da cikakken sunanka da lambar waya mai lambobi 11.','We sent you an email. Tap the link inside it, then log in. If it has a 6-digit code, enter it below.':'Mun aiko maka imel. Ka danna link ɗin da ke ciki, sai ka shiga. Idan yana da lambar lambobi 6, ka shigar da ita a ƙasa.','Enter the code from your email.':'Shigar da lambar da ke cikin imel ɗinka.','A new code was sent.':'An aika sabuwar lamba.','Funding opens in Phase 3 after Paystack/Flutterwave is connected and tested.':'Saka kuɗi zai buɗe a Phase 3, bayan an haɗa Paystack/Flutterwave an gwada.','Fill subject and message.':'Cike take da saƙo.','Ticket sent. We will reply soon.':'An aika korafi. Za mu amsa nan ba da jimawa ba.','Enter your business name.':'Shigar da sunan kasuwancinka.','Application sent. Awaiting admin approval.':'An aika buƙata. Ana jiran amincewar admin.','Approved.':'An amince.','Resolved.':'An rufe.','Link copied.':'An kwafi link ɗin.','Transaction PIN':'PIN na Ma’amala','Your 4-digit PIN is asked before every purchase.':'Ana tambayar PIN ɗinka mai lambobi 4 kafin kowace siyayya.','Current PIN':'PIN na yanzu','New PIN':'Sabon PIN','Confirm PIN':'Tabbatar da PIN','Save PIN':'Ajiye PIN','PIN saved.':'An ajiye PIN.','PIN must be 4 digits.':'PIN ya zama lambobi 4.','PINs do not match.':'PIN ɗin biyu ba iri ɗaya ba ne.','Pay from wallet':'Biya daga wallet','Phone number':'Lambar waya','Buy airtime':'Sayi airtime','First set your PIN in Profile, Transaction PIN.':'Da farko ka saita PIN a Asusu, PIN na Ma’amala.','No plans for this network.':'Babu kunshin data na wannan network ɗin.','Check status':'Duba matsayi','Purchase successful.':'An yi siyayya cikin nasara.','Purchase failed. Your money was returned.':'Siyayya ta gaza. An mayar maka da kuɗinka.','Purchase is processing. Check Transactions for the result.':'Ana aiwatar da siyayyar. Duba Ma’amaloli don sakamako.','Still processing. Check again later.':'Har yanzu ana aiwatarwa. Sake dubawa daga baya.','Enter a valid 11-digit phone number.':'Shigar da lambar waya mai lambobi 11.','Enter your 4-digit transaction PIN.':'Shigar da PIN ɗinka mai lambobi 4.','Payment received. Your wallet was funded.':'An karɓi kuɗin. An saka a wallet ɗinka.','Payment is not confirmed yet. If you paid, your wallet will update shortly.':'Ba a tabbatar da biyan ba tukuna. Idan ka biya, wallet ɗinka zai sabunta nan ba da jimawa ba.','Enter an amount from ₦100 to ₦500,000.':'Shigar da adadi daga ₦100 zuwa ₦500,000.','Enter airtime from ₦50 to ₦50,000.':'Shigar da airtime daga ₦50 zuwa ₦50,000.','Load data plans from VTpass':'Dauko kunshin data daga VTpass','Your profit per plan: retail (₦)':'Ribarka a kowane plan: retail (₦)','Your profit per plan: wholesale (₦)':'Ribarka a kowane plan: wholesale (₦)','Load plans':'Dauko plans','Existing prices are kept. New plans get cost plus these margins.':'Ba a canza farashin da ke akwai. Sabbin plans za su samu farashin provider tare da ribarka.','Enter your profit margins in naira.':'Shigar da ribarka a naira.','Confirm password':'Tabbatar da password','Forgot password?':'Ka manta password?','Reset password':'Sake saita password','Send reset link':'Aika link ɗin sake saitawa','New password':'Sabon password','Save password':'Ajiye password','Passwords do not match.':'Passwords ɗin biyu ba iri ɗaya ba ne.','Password must be at least 8 characters.':'Password ya zama akalla haruffa 8.','Enter a valid email.':'Shigar da imel mai kyau.','A reset link was sent to your email.':'An aika link ɗin sake saitawa zuwa imel ɗinka.','Password changed.':'An canza password.','This phone number or email may already be registered. Try another number, or log in.':'Wataƙila an riga an yi rajista da wannan lambar waya ko imel. Gwada wata lamba, ko ka shiga.'};
 function tx(s){return LANG=='ha'&&D[s]?D[s]:s}
 function msgHtml(){return S.msg?'<div class="msg'+(S.err?' err':'')+'" role="status">'+esc(tx(S.msg))+'</div>':''}
 function applyLang(){
@@ -143,7 +148,7 @@ async function boot(){
  var p=await sb.from('profiles').select('full_name,phone,role,referral_code').eq('id',S.user.id).maybeSingle();
  S.profile=p.data||{role:'retail',full_name:''};
  $('who').textContent=S.profile.role.toUpperCase();
- chrome(true);render();
+ chrome(true);render();verifyReturn();
 }
 function navHtml(){
  var t=[['home','🏠','Home'],['tx','⇄','Transactions'],['wallet','👛','Wallet'],['profile','👤','Profile']];
@@ -160,7 +165,7 @@ async function homeView(){
  var rf=await sb.from('referrals').select('reward').eq('referrer_id',u);
  var bonus=(rf.data||[]).reduce(function(a,x){return a+Number(x.reward||0)},0);
  var t=await sb.from('wallet_transactions').select('kind,amount,description,created_at').eq('user_id',u).order('created_at',{ascending:false}).limit(3);
- var G=[['🌐','Data','data'],['📞','Airtime','soon'],['📺','Cable','soon'],['💡','Electricity','soon'],['💳','Data Card','soon'],['🎁','Bonus to Wallet','soon'],['🔄','Airtime to Cash','soon'],['🔢','Recharge Pin','soon'],['🎓','Edu Pin','soon'],['👥','My Referrals','refer'],['🏪','Wholesale','wholesale'],['🎧','Support','contact']];
+ var G=[['🌐','Data','data'],['📞','Airtime','airtime'],['📺','Cable','soon'],['💡','Electricity','soon'],['💳','Data Card','soon'],['🎁','Bonus to Wallet','soon'],['🔄','Airtime to Cash','soon'],['🔢','Recharge Pin','soon'],['🎓','Edu Pin','soon'],['👥','My Referrals','refer'],['🏪','Wholesale','wholesale'],['🎧','Support','contact']];
  var nm=(S.profile.full_name||'').split(' ')[0];
  return '<div class="card"><div class="note">Welcome!</div><b>'+esc(nm)+' 👋</b></div>'+msgHtml()+
  '<div class="hero"><div class="two"><div><small>Account Balance</small><div class="bal">'+money(w.data&&w.data.balance)+' <button class="eye" id="eye" aria-label="Show or hide balance">'+(S.hide?'🙈':'👁️')+'</button></div></div><div><small>Referral Bonus</small><div class="bal">'+money(bonus)+'</div></div></div><button class="btn gold full" data-tab="wallet">Fund Wallet</button></div>'+
@@ -171,21 +176,24 @@ async function homeView(){
 }
 async function txView(){
  var u=S.user.id;
- var a=await sb.from('vtu_transactions').select('service,network,recipient,amount,status,created_at').eq('user_id',u).order('created_at',{ascending:false}).limit(20);
+ var a=await sb.from('vtu_transactions').select('reference,service,network,recipient,amount,status,created_at').eq('user_id',u).order('created_at',{ascending:false}).limit(20);
  var b=await sb.from('wallet_transactions').select('kind,amount,description,created_at').eq('user_id',u).order('created_at',{ascending:false}).limit(20);
- return '<h2>Transactions</h2><div class="card"><h3>Purchases</h3>'+((a.data&&a.data.length)?a.data.map(function(x){return '<div class="row"><div>'+esc(x.service+' '+(x.network||'')+' → '+x.recipient)+'<div class="note">'+dt(x.created_at)+'</div></div><div><b>'+naira(x.amount)+'</b><br><span class="chip">'+esc(x.status)+'</span></div></div>'}).join(''):noneP('No purchases yet.'))+'</div><div class="card"><h3>Wallet history</h3>'+((b.data&&b.data.length)?b.data.map(txRow).join(''):noneP('No transactions yet.'))+'</div>';
+ return '<h2>Transactions</h2>'+msgHtml()+'<div class="card"><h3>Purchases</h3>'+((a.data&&a.data.length)?a.data.map(function(x){return '<div class="row"><div>'+esc(x.service+' '+(x.network||'')+' → '+x.recipient)+'<div class="note">'+dt(x.created_at)+'</div></div><div><b>'+naira(x.amount)+'</b><br><span class="chip">'+esc(x.status)+'</span>'+(x.status=='pending'?'<br><button class="btn" data-rq="'+esc(x.reference)+'">Check status</button>':'')+'</div></div>'}).join(''):noneP('No purchases yet.'))+'</div><div class="card"><h3>Wallet history</h3>'+((b.data&&b.data.length)?b.data.map(txRow).join(''):noneP('No transactions yet.'))+'</div>';
 }
 async function walletView(){
  var w=await sb.from('wallets').select('balance').eq('user_id',S.user.id).maybeSingle();
- return '<h2>Wallet</h2>'+msgHtml()+'<div class="hero"><small>Account Balance</small><div class="bal">'+money(w.data&&w.data.balance)+'</div></div><div class="card"><h3>Fund wallet</h3><label for="fa">Amount (₦)</label><input id="fa" type="number" inputmode="numeric" placeholder="1000"><button class="btn full" id="fund">Pay with Paystack</button><button class="btn gold full" id="fund">Pay with Flutterwave</button></div>';
+ return '<h2>Wallet</h2>'+msgHtml()+'<div class="hero"><small>Account Balance</small><div class="bal">'+money(w.data&&w.data.balance)+'</div></div><div class="card"><h3>Fund wallet</h3><label for="fa">Amount (₦)</label><input id="fa" type="number" inputmode="numeric" placeholder="1000"><button class="btn gold full" id="pay">Pay with Paystack</button></div>';
 }
 function profileView(){
  var p=S.profile,ini=(p.full_name||'?').trim().slice(0,1).toUpperCase();
  return '<div class="center"><div class="avatar">'+esc(ini)+'</div><h2 style="margin:8px 0 0">'+esc(p.full_name)+'</h2><div class="note">'+esc(S.user.email)+'</div></div>'+msgHtml()+'<div class="card list">'+
- item('👤','Profile','data-sub="info"')+item('💲','Pricing','data-sub="data"')+item('📞','Contact Us','data-sub="contact"')+item('📝','Log Complaint','data-sub="complaint"')+item('👥','My Referrals','data-sub="refer"')+item('⬆️','Upgrade to Wholesale','data-sub="wholesale"')+item('📤','Share App','id="share"')+item('🌓','Dark Mode','id="dark"')+item('🌐','Language','id="lang2"')+item('⚖️','Legal','data-sub="legal"')+(p.role=='admin'?item('🛡️','Admin Panel','data-sub="admin"'):'')+item('🚪','Log Out','id="out"')+'</div>';
+ item('👤','Profile','data-sub="info"')+item('💲','Pricing','data-sub="data"')+item('📞','Contact Us','data-sub="contact"')+item('📝','Log Complaint','data-sub="complaint"')+item('👥','My Referrals','data-sub="refer"')+item('⬆️','Upgrade to Wholesale','data-sub="wholesale"')+item('📤','Share App','id="share"')+item('🔐','Transaction PIN','data-sub="pin"')+item('🌓','Dark Mode','id="dark"')+item('🌐','Language','id="lang2"')+item('⚖️','Legal','data-sub="legal"')+(p.role=='admin'?item('🛡️','Admin Panel','data-sub="admin"'):'')+item('🚪','Log Out','id="out"')+'</div>';
 }
 async function subView(){
  var s=S.sub,u=S.user.id,h='<button class="back" data-back>‹ Back</button>'+msgHtml();
+ if(s=='data')return h+await dataView();
+ if(s=='airtime')return h+'<h2>Airtime</h2>'+netTabs()+buyCard('Buy airtime','buyair',true);
+ if(s=='pin')return h+await pinView();
  if(s=='info')return h+'<h2>Profile</h2><div class="card"><div class="row"><span>Name</span><b>'+esc(S.profile.full_name)+'</b></div><div class="row"><span>Phone</span><b>'+esc(S.profile.phone)+'</b></div><div class="row"><span>Email</span><b>'+esc(S.user.email)+'</b></div><div class="row"><span>Referral code</span><b>'+esc(S.profile.referral_code)+'</b></div></div>';
  if(s=='soon')return h+'<h2>'+esc(S.name)+'</h2><div class="card">'+noneP('Coming in Phase 3 after the VTU provider is connected and tested.')+'</div>';
  if(s=='data'){var pl=await sb.rpc('my_plans'),rows=pl.data||[];
@@ -199,24 +207,64 @@ async function subView(){
   return h+'<h2>Open a ticket</h2><div class="card"><label for="ts">Subject</label><input id="ts" maxlength="120"><label for="tm">Message</label><textarea id="tm" rows="4" maxlength="1000"></textarea><button class="btn gold full" id="tsend">Send</button></div><h3>My tickets</h3><div class="card">'+((tk.data&&tk.data.length)?tk.data.map(function(x){return '<div class="row"><div>'+esc(x.subject)+'<div class="note">'+dt(x.created_at)+(x.admin_reply?' · '+esc(x.admin_reply):'')+'</div></div><span class="chip">'+esc(x.status)+'</span></div>'}).join(''):noneP('No tickets.'))+'</div>'}
  if(s=='legal')return h+'<h2>Privacy, Security & Terms</h2><div class="card">'+noneP('This is a pre-launch version. The full Terms of Use and Privacy Policy will be published before public launch.')+noneP('We store your data securely and never show private keys in the app.')+'</div>';
  if(s=='admin'){var a=await sb.from('wholesale_accounts').select('user_id,business_name,status').eq('status','pending'),b2=await sb.from('support_tickets').select('id,subject,message,status').neq('status','resolved').limit(20);
-  return h+'<h2>Admin</h2><div class="card"><h3>Pending wholesale</h3>'+((a.data&&a.data.length)?a.data.map(function(x){return '<div class="row"><div>'+esc(x.business_name)+'<div class="note">'+esc(x.user_id.slice(0,8))+'</div></div><button class="btn" data-ap="'+x.user_id+'">Approve</button></div>'}).join(''):noneP('None.'))+'</div><div class="card"><h3>Open tickets</h3>'+((b2.data&&b2.data.length)?b2.data.map(function(x){return '<div class="row"><div><b>'+esc(x.subject)+'</b><div class="note">'+esc(x.message)+'</div></div><button class="btn" data-rs="'+x.id+'">Resolve</button></div>'}).join(''):noneP('None.'))+'</div>'+noneP('Prices, VTU provider and rates are managed in Phase 3.')}
+  return h+'<h2>Admin</h2>'+syncCard()+'<div class="card"><h3>Pending wholesale</h3>'+((a.data&&a.data.length)?a.data.map(function(x){return '<div class="row"><div>'+esc(x.business_name)+'<div class="note">'+esc(x.user_id.slice(0,8))+'</div></div><button class="btn" data-ap="'+x.user_id+'">Approve</button></div>'}).join(''):noneP('None.'))+'</div><div class="card"><h3>Open tickets</h3>'+((b2.data&&b2.data.length)?b2.data.map(function(x){return '<div class="row"><div><b>'+esc(x.subject)+'</b><div class="note">'+esc(x.message)+'</div></div><button class="btn" data-rs="'+x.id+'">Resolve</button></div>'}).join(''):noneP('None.'))+'</div>'+noneP('Prices, VTU provider and rates are managed in Phase 3.')}
  return h;
+}
+function netTabs(){var n=S.net||'MTN';return '<div class="tabs">'+['MTN','AIRTEL','GLO','9MOBILE'].map(function(x){return '<button data-net="'+x+'" aria-pressed="'+(n==x)+'">'+x+'</button>'}).join('')+'</div>'}
+function buyCard(t,id,air){return '<div class="card"><h3>'+esc(t)+'</h3><label for="bph">Phone number</label><input id="bph" inputmode="tel" maxlength="11" placeholder="080...">'+(air?'<label for="bamt">Amount (₦)</label><input id="bamt" type="number" inputmode="numeric" placeholder="100">':'')+'<label for="bpin">Transaction PIN</label><input id="bpin" type="password" inputmode="numeric" maxlength="4" autocomplete="off"><button class="btn gold full" id="'+id+'">Pay from wallet</button>'+noneP('First set your PIN in Profile, Transaction PIN.')+'</div>'}
+async function dataView(){
+ var pl=await sb.rpc('my_plans'),rows=pl.data||[],net=S.net||'MTN';
+ var list=rows.filter(function(x){return x.network==net}),ch=rows.filter(function(x){return x.id==S.plan})[0];
+ return '<h2>Data plans</h2>'+netTabs()+'<div class="card">'+(rows.length?(list.length?list.map(function(x){return '<div class="row"><div><b>'+esc(x.plan_type)+'</b><div class="note">'+esc(x.name)+'</div></div><div><b>'+naira(x.price)+'</b><br><button class="btn" data-plan="'+x.id+'">Buy</button></div></div>'}).join(''):noneP('No plans for this network.')):noneP('No plans yet. Plans appear only after the admin connects the VTU provider (Phase 3). We never show invented prices.'))+'</div>'+(ch?buyCard(ch.network+' '+ch.name+' · '+naira(ch.price),'buy',false):'');
+}
+async function pinView(){
+ var r=await api({action:'has-pin'}),pf=function(i,l){return '<label for="'+i+'">'+l+'</label><input id="'+i+'" type="password" inputmode="numeric" maxlength="4" autocomplete="off">'};
+ return '<h2>Transaction PIN</h2><div class="card">'+noneP('Your 4-digit PIN is asked before every purchase.')+(r.has?pf('opin','Current PIN'):'')+pf('npin','New PIN')+pf('cpin','Confirm PIN')+'<button class="btn gold full" id="savepin">Save PIN</button></div>';
+}
+function syncCard(){return '<div class="card"><h3>Load data plans from VTpass</h3><label for="rm">Your profit per plan: retail (₦)</label><input id="rm" type="number" inputmode="numeric" placeholder="20"><label for="wm">Your profit per plan: wholesale (₦)</label><input id="wm" type="number" inputmode="numeric" placeholder="10"><button class="btn gold full" id="sync">Load plans</button>'+noneP('Existing prices are kept. New plans get cost plus these margins.')+'</div>'}
+async function verifyReturn(){
+ try{var q=new URLSearchParams(location.search),rf=q.get('reference')||q.get('trxref');if(!rf)return;
+  history.replaceState(null,'',location.pathname);
+  var r=await api({action:'verify-payment',reference:rf}),ok=r.result=='credited'||r.result=='already';
+  say(ok?'Payment received. Your wallet was funded.':'Payment is not confirmed yet. If you paid, your wallet will update shortly.',!ok);S.tab='wallet';S.sub='';render()}catch(x){}
 }
 async function render(){
  navHtml();$('app').innerHTML=noneP('Loading...');applyLang();
  var h='';
+ try{
  if(S.sub)h=await subView();
  else if(S.tab=='home')h=await homeView();
  else if(S.tab=='tx')h=await txView();
  else if(S.tab=='wallet')h=await walletView();
  else h=profileView();
+ }catch(x){h='<div class="msg err">'+esc(x.message)+'</div>'}
  $('app').innerHTML=h;applyLang();
 }
 async function copyTxt(t){try{await navigator.clipboard.writeText(t);say('Link copied.')}catch(e){window.prompt('Copy:',t)}}
 
 document.addEventListener('click',async function(e){
- var el=e.target.closest('[data-mode],[data-tab],[data-sub],[data-back],[data-ap],[data-rs],#go,#vf,#rsd,#lang,#lang2,#tsend,#wapply,#out,#share,#dark,#copy,#eye,#fund,[data-eye],#fg,#rst');if(!el)return;
- var id=el.id,d=el.dataset;
+ var el=e.target.closest('[data-mode],[data-tab],[data-sub],[data-back],[data-ap],[data-rs],#go,#vf,#rsd,#lang,#lang2,#tsend,#wapply,#out,#share,#dark,#copy,#eye,#fund,[data-eye],#fg,#rst,[data-net],[data-plan],[data-rq],#pay,#buy,#buyair,#savepin,#sync');if(!el)return;
+var id=el.id,d=el.dataset;
+ if(d.net){S.net=d.net;S.plan=null;return render()}
+ if(d.plan){S.plan=d.plan;return render()}
+ if(d.rq){try{var rq=await api({action:'requery',reference:d.rq});say(rq.status=='success'?'Purchase successful.':rq.status=='failed'?'Purchase failed. Your money was returned.':'Still processing. Check again later.',rq.status=='failed')}catch(x){say(x.message,1)}return render()}
+ if(id=='pay'){var am0=Math.floor(Number($('fa').value));if(!(am0>=100&&am0<=500000)){say('Enter an amount from ₦100 to ₦500,000.',1);return render()}
+  el.disabled=true;try{var pr=await api({action:'init-payment',amount:am0});location.href=pr.url;return}catch(x){say(x.message,1);return render()}}
+ if(id=='buy'||id=='buyair'){var ph0=$('bph').value.trim(),pin0=$('bpin').value.trim();
+  if(!/^0\d{10}$/.test(ph0)){say('Enter a valid 11-digit phone number.',1);return render()}
+  if(!/^\d{4}$/.test(pin0)){say('Enter your 4-digit transaction PIN.',1);return render()}
+  var bd={action:'buy',phone:ph0,pin:pin0};
+  if(id=='buy'){bd.kind='data';bd.plan_id=S.plan}else{var am1=Math.floor(Number($('bamt').value));if(!(am1>=50&&am1<=50000)){say('Enter airtime from ₦50 to ₦50,000.',1);return render()}bd.kind='airtime';bd.network=S.net||'MTN';bd.amount=am1}
+  el.disabled=true;
+  try{var br=await api(bd);S.plan=null;say(br.status=='success'?'Purchase successful.':br.status=='failed'?'Purchase failed. Your money was returned.':'Purchase is processing. Check Transactions for the result.',br.status=='failed')}catch(x){say(x.message,1)}
+  return render()}
+ if(id=='savepin'){var np=$('npin').value.trim(),cp=$('cpin').value.trim(),op=$('opin')?$('opin').value.trim():'';
+  if(!/^\d{4}$/.test(np)){say('PIN must be 4 digits.',1);return render()}
+  if(np!==cp){say('PINs do not match.',1);return render()}
+  try{await api({action:'set-pin',pin:np,old_pin:op});say('PIN saved.')}catch(x){say(x.message,1)}return render()}
+ if(id=='sync'){var rm=Number($('rm').value||0),wm=Number($('wm').value||0);
+  if(!(rm>0)||!(wm>=0)){say('Enter your profit margins in naira.',1);return render()}
+  el.disabled=true;try{var sr=await api({action:'sync-plans',retail_margin:rm,wholesale_margin:wm});say(sr.plans+' plans loaded.')}catch(x){say(x.message,1)}return render()}
  if(d.eye){var inp=$(d.eye);inp.type=inp.type=='password'?'text':'password';return}
  if(d.mode){S.mode=d.mode;say('');return authView()}
  if(id=='fg'){var em2=$('em').value.trim();if(!/^\S+@\S+\.\S+$/.test(em2)){say('Enter a valid email.',1);return pwView()}
@@ -231,7 +279,7 @@ document.addEventListener('click',async function(e){
   say('');return boot()}
  if(id=='rsd'){var rr=await sb.auth.resend({type:'signup',email:S.pend});say(rr.error?rr.error.message:'A new code was sent.',!!rr.error);return authView()}
  if(d.tab){S.tab=d.tab;S.sub='';say('');return render()}
- if(d.sub){S.sub=d.sub;S.name=d.name||'';say('');return render()}
+ if(d.sub){S.sub=d.sub;S.name=d.name||'';S.plan=null;say('');return render()}
  if(d.back!==undefined){S.sub='';say('');return render()}
  if(id=='eye'){S.hide=!S.hide;ls('rgd_hide',S.hide?'1':'0');return render()}
  if(id=='dark'){TH=TH=='dark'?'light':'dark';ls('rgd_th',TH);document.documentElement.setAttribute('data-theme',TH);return}
